@@ -1,0 +1,24 @@
+{
+  "name": "amotorsport",
+  "version": "1.0.0",
+  "description": "web amoresmotorsport",
+  "main": "index.js",
+  "dependencies": {
+    "npm": "^6.13.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "webpack-bundle-tracker": "^0.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js --progress --colors --mode development",
+    "watch": "webpack --config webpack.config.js --watch --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(\u0016https://github.com/aleza/python.git)"
+  },
+  "author": "User alexis.leza@gmail.com",
+  "license": "ISC"
+}

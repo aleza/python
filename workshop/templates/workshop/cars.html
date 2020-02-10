@@ -1,0 +1,41 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+{% csrf_token %}
+{% for field in form %}
+  	{% bootstrap_field field %}
+{% endfor %}
+
+<div class="card">
+	<div class="card-header text-left" style="margin-bottom:0">
+		<h4 class="card-title">Cars :</h4>
+	</div>
+	<div class="card-body">
+		{% if latest_brands_list %}
+    	<ul class="list-group, csrf_token">
+    		{% for brand in latest_brands_list %}
+        	<li class="list-group-item list-group-item-action">
+        		
+        			{{ brand.owner }}, {{ brand.brandName }}
+        		
+        	</li>
+    		{% endfor %}
+    	</ul>
+		{% else %}
+    		<p>No owners are available.</p>
+		{% endif %}
+	</div>
+	<div class="card-body">
+		<ul class="list-group, csrf_token">
+			<li class="list-group-item list-group-item-action">
+        		<a href="{% url 'workshop:index' %}">
+        			<input type="Button" name="Owners" value="Owners" class="btn btn-info">
+        		</a>
+        	</li>
+    	</ul>
+	</div>
+</div>
