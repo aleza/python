@@ -13,29 +13,69 @@
 <div class="card">
 	<div class="card-header text-left" style="margin-bottom:0">
 		<h4 class="card-title">Cars :</h4>
+        <h1>{{ owner.surname }}, {{ owner.name }}</h1>
 	</div>
 	<div class="card-body">
-		{% if latest_brands_list %}
-    	<ul class="list-group, csrf_token">
-    		{% for brand in latest_brands_list %}
-        	<li class="list-group-item list-group-item-action">
-        		
-        			{{ brand.owner }}, {{ brand.brandName }}
-        		
-        	</li>
-    		{% endfor %}
-    	</ul>
-		{% else %}
-    		<p>No owners are available.</p>
-		{% endif %}
+
+
+            {% for owner in owner.brand_set.all %}  
+                {{ owner.brandName }},
+                {{ owner.id}}, {{ owner.owner_id }}
+ 
+                {% for models in latest_brands_list %}   
+                     {% if models.id == brands.id %}                                   
+                        {% for mod in latest_models_list %}
+                            {% if mod.id == models.id %}                            
+
+                                {{ mod.modelName }}, 
+                                {{ mod.year }},
+                                {{ mod.km_car }}    
+                            {% endif %}
+                        {% endfor %}                            
+                    {% endif %}
+                {% endfor %}
+
+          
+                <br>
+            {% endfor %} 
+
+
+
+        <a href="{% url 'workshop:repairs' owner.id %}">
+            <button type="button" class="btn btn-outline-primary">
+              
+    		{% for brands in owner.brand_set.all %}  
+                {{ brands.brandName }},
+ 
+                {% for models in latest_brands_list %}   
+                     {% if models.id == brands.id %}                                   
+                        {% for mod in latest_models_list %}
+                            {% if mod.id == models.id %}                            
+
+                                {{ mod.modelName }}, 
+                                {{ mod.year }},
+                                {{ mod.km_car }}    
+                            {% endif %}
+                        {% endfor %}                            
+                    {% endif %}
+                {% endfor %}
+
+          
+                <br>
+            {% endfor %} 
+    		
+
+            </button>     
+        </a>                             
 	</div>
 	<div class="card-body">
-		<ul class="list-group, csrf_token">
-			<li class="list-group-item list-group-item-action">
+
         		<a href="{% url 'workshop:index' %}">
-        			<input type="Button" name="Owners" value="Owners" class="btn btn-info">
+        			<button type="Button" class="btn btn-outline-primary">Owners</button>
         		</a>
-        	</li>
-    	</ul>
+                <button type="button" class="btn btn-secondary btn-lg" disabled>Cars</button>
+                <a href="{% url 'workshop:repairs' owner.id %}">
+                    <button type="button" class="btn btn-outline-primary">Repairs</button>     
+                </a>  
 	</div>
 </div>

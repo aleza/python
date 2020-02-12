@@ -20,8 +20,9 @@
     		{% for owner in latest_owners_list %}
         	<li class="list-group-item list-group-item-action">        		        	
 
-                    <a href="{% url 'workshop:brands' %}">
-                        <input type="Button" name="Owners" value="{{ owner.name }} , {{ owner.surname }}" class="btn btn-info">
+                    
+                    <a href="{% url 'workshop:brands' owner.id %}">
+                        <input type="Button" name="Owners" value="{{ owner.surname }}, {{ owner.name }}" class="btn btn-info">
                     </a>  
 
         	</li>
@@ -31,13 +32,5 @@
     		<p>No owners are available.</p>
 		{% endif %}
 	</div>
-	<div class="card-body">
-		<ul class="list-group, csrf_token">
-			<li class="list-group-item list-group-item-action">
-        		<a href="{% url 'workshop:index' %}">
-        			<input type="Button" name="Owners" value="Owners" class="btn btn-info">
-        		</a>
-        	</li>
-    	</ul>
-	</div>
+	
 </div>

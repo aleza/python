@@ -10,14 +10,46 @@ from .models import Repair
 
 
 def index(request):
-    latest_owners_list = Owner.objects.order_by('surname')[:]
-    context = {'latest_owners_list': latest_owners_list}
+    latest_owners_list  = Owner.objects.order_by('surname')[:]
+    latest_brands_list  = Brand.objects.order_by('owner')[:]
+    latest_models_list  = Model.objects.order_by('brand')[:]
+    latest_repairs_list = Repair.objects.order_by('model')[:]
+    context = { 'latest_owners_list' : latest_owners_list,
+                'latest_brands_list' : latest_brands_list,
+                'latest_models_list' : latest_brands_list,
+                'latest_repairs_list': latest_repairs_list
+                }
     return render(request, 'workshop/index.html', context)
 
-def brands(request):
-    latest_brands_list = Brand.objects.order_by('brandName')
-    brand = {'latest_brands_list': latest_brands_list}
-    return render(request, 'workshop/cars.html', brand)
+def brands(request, owner_id):
+    owner   = get_object_or_404(Owner, pk=owner_id)   
+    brand   = get_object_or_404(Brand, pk=owner_id) 
+    model   = get_object_or_404(Model, pk=owner_id)
+    repair  = get_object_or_404(Repair, pk=owner_id)
+    latest_brands_list  = Brand.objects.order_by('owner')[:]
+    latest_models_list  = Model.objects.order_by('brand')[:]
+    latest_repairs_list = Repair.objects.order_by('model')[:]    
+    context = { 'owner' : owner,
+                'brand' : brand,
+                'model' : model,
+                'repair': repair,
+                'latest_brands_list'  : latest_brands_list,
+                'latest_models_list'  : latest_models_list,
+                'latest_repairs_list' : latest_repairs_list
+                }
+    return render(request, 'workshop/cars.html', context)
+        
+def repairs(request, owner_id):
+    owner   = get_object_or_404(Owner, pk=owner_id)   
+    brand   = get_object_or_404(Brand, pk=owner_id) 
+    model   = get_object_or_404(Model, pk=owner_id)
+    repair  = get_object_or_404(Repair, pk=owner_id)
+    context = { 'owner' : owner,
+                'brand' : brand,
+                'model' : model,
+                'repair': repair
+                }
+    return render(request, 'workshop/repair.html', context)        
 
 """
 def detail(request, question_id):

@@ -1,0 +1,82 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+{% csrf_token %}
+{% for field in form %}
+    {% bootstrap_field field %}
+{% endfor %}
+
+<div class="card">
+    <div class="card-header text-left" style="margin-bottom:0">
+        <h4 class="card-title">Repairs :</h4>
+        <h1>{{ owner.surname }}, {{ owner.name }}</h1>
+    </div>
+    <div class="form-row align-items-center">
+        <ul class="list-group, csrf_token">
+            {% for brands in owner.brand_set.all %}                     
+             
+                <li class="list-group-item list-group-item-action">
+                    <p class="font-weight-bolder">
+                        Vehículo
+                    </p>
+                    <label for="brands{{ forloop.counter }}">
+                        {{ brands.brandName }}                
+                    </label>
+
+                    {% for models in brand.model_set.all %}
+                        <label for="models{{ forloop.counter }}">                
+                            {{ models.modelName }},
+                            {{ models.year }}
+                        </label>
+                    {% endfor %}                    
+                </li>
+             
+                
+
+                    {% for repair in model.repair_set.all %}
+                    <label for="repair{{ forloop.counter }}">
+                        <li class="list-group-item list-group-item-action">
+                            <p class="font-weight-bolder">
+                                Fecha
+                            </p>
+                            {{ repair.date_reg }}
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            <p class="font-weight-bolder">
+                                Arreglo
+                            </p>
+                            {{ repair.detail }}
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            <p class="font-weight-bolder">
+                                Km arreglo
+                            </p>    
+                            {{ repair.km_repair }}
+                        </li>
+                        <li class="list-group-item list-group-item-action">
+                            <p class="font-weight-bolder">
+                                Costo
+                            </p>
+                            {{ repair.cost }}
+                        </li>
+                    </label>
+                    {% endfor %}                                                  
+            {% endfor %}                       
+        </ul>
+    </div>
+    <div class="card-body">
+
+                <a href="{% url 'workshop:index' %}">
+                    <button type="Button" class="btn btn-outline-primary">Owners</button>
+                </a>
+                <a href="{% url 'workshop:brands' owner.id %}">
+                    <button type="button" class="btn btn-outline-primary">Cars</button>     
+                </a>  
+                <button type="button" class="btn btn-secondary btn-lg" disabled>Repairs</button>
+
+    </div>
+</div>

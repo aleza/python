@@ -20,6 +20,7 @@ class Model(models.Model):
     brand           = models.ForeignKey(Brand, on_delete=models.CASCADE)
     modelName       = models.CharField(max_length=30)
     year            = models.CharField(max_length=8)
+    km_car          = models.CharField(max_length=10)
 
     def __str__(self):
         return self.modelName.capitalize() + " "+ self.year
@@ -27,6 +28,9 @@ class Model(models.Model):
 class Repair(models.Model):
     model           = models.ForeignKey(Model, on_delete=models.CASCADE)        
     detail          = models.CharField(max_length=30)
+    date_reg        = models.DateTimeField(auto_now_add=True)
+    km_repair       = models.CharField(max_length=10)
+    cost            = models.CharField(max_length=10)
 
     def __str__(self):
         return self.detail.capitalize()
