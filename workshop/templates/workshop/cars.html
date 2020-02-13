@@ -10,64 +10,58 @@
   	{% bootstrap_field field %}
 {% endfor %}
 
+
+
+
 <div class="card">
 	<div class="card-header text-left" style="margin-bottom:0">
 		<h4 class="card-title">Cars :</h4>
         <h1>{{ owner.surname }}, {{ owner.name }}</h1>
 	</div>
-	<div class="card-body">
 
-
-            {% for owner in owner.brand_set.all %}  
-                {{ owner.brandName }},
-                {{ owner.id}}, {{ owner.owner_id }}
  
-                {% for models in latest_brands_list %}   
-                     {% if models.id == brands.id %}                                   
-                        {% for mod in latest_models_list %}
-                            {% if mod.id == models.id %}                            
-
-                                {{ mod.modelName }}, 
-                                {{ mod.year }},
-                                {{ mod.km_car }}    
-                            {% endif %}
-                        {% endfor %}                            
-                    {% endif %}
-                {% endfor %}
-
-          
-                <br>
-            {% endfor %} 
-
-
-
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Año</th>
+      <th scope="col">Km</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for owner in owner.brand_set.all %}
+    <tr>
+            
+    <th scope="row">
         <a href="{% url 'workshop:repairs' owner.id %}">
-            <button type="button" class="btn btn-outline-primary">
-              
-    		{% for brands in owner.brand_set.all %}  
-                {{ brands.brandName }},
- 
-                {% for models in latest_brands_list %}   
-                     {% if models.id == brands.id %}                                   
-                        {% for mod in latest_models_list %}
-                            {% if mod.id == models.id %}                            
+            {{ owner.brandName }}
+        </a>
+    </th>
+    
+        {% for brand in brand.model_set.all %}                                           
+            {% for mod in latest_models_list %}              
+                {% if owner.id == mod.brand_id %}
+        <td>
+                    {{ mod.modelName }}
+        </td>
+        <td>
+                    {{ mod.year }}
+        </td>
+        <td>
+                    {{ mod.km_car }}
+        </td>
+    </tr>
+                {% endif %}
+            {% endfor %}                      
+        {% endfor %} 
+    {% endfor %}            
 
-                                {{ mod.modelName }}, 
-                                {{ mod.year }},
-                                {{ mod.km_car }}    
-                            {% endif %}
-                        {% endfor %}                            
-                    {% endif %}
-                {% endfor %}
+  </tbody>
+</table>
 
-          
-                <br>
-            {% endfor %} 
-    		
 
-            </button>     
-        </a>                             
-	</div>
+
 	<div class="card-body">
 
         		<a href="{% url 'workshop:index' %}">
