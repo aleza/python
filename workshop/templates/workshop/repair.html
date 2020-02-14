@@ -15,61 +15,58 @@
         <h4 class="card-title">Repairs :</h4>
         <h1>{{ owner.surname }}, {{ owner.name }}</h1>
     </div>
-    <div class="form-row align-items-center">
-        <ul class="list-group, csrf_token">
-            {% for brands in owner.brand_set.all %}                     
-             
-                <li class="list-group-item list-group-item-action">
-                    <p class="font-weight-bolder">
-                        Vehículo
-                    </p>
-                    <label for="brands{{ forloop.counter }}">
-                        {{ brands.brandName }}                
-                    </label>
 
-                    {% for models in brand.model_set.all %}
-                        <label for="models{{ forloop.counter }}">                
-                            {{ models.modelName }},
-                            {{ models.year }}
-                        </label>
-                    {% endfor %}                    
-                </li>
-             
-                
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Marca</th>  
+      <th scope="col">Detalle</th>
+      <th scope="col">Fecha arreglo</th>
+      <th scope="col">Km arreglo</th>
+      <th scope="col">Valor arreglo</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for owner in owner.brand_set.all %}
+    <tr>
+            
+    <th scope="row">
+        <a href="{% url 'workshop:repairs' owner.id %}">
+            {{ owner.brandName }}
+        </a>
+    </th>
+    
+    {% for brand in brand.model_set.all %}                                           
+        {% for repair in latest_repairs_list %} 
+            {% for model in latest_models_list %}               
+                {% if model.id == repair.model_id and model.brand_id == owner.id %}                
+        <td>
+                    {{ repair.detail }}
+        </td>
+        <td>
+                    {{ repair.date_reg }}
+        </td>
+        <td>
+                    {{ repair.km_repair }}
+        </td>
+        <td>
+                    {{ repair.cost }}
+        </td>        
+    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}                      
+    {% endfor %} 
+{% endfor %}            
 
-                    {% for repair in model.repair_set.all %}
-                    <label for="repair{{ forloop.counter }}">
-                        <li class="list-group-item list-group-item-action">
-                            <p class="font-weight-bolder">
-                                Fecha
-                            </p>
-                            {{ repair.date_reg }}
-                        </li>
-                        <li class="list-group-item list-group-item-action">
-                            <p class="font-weight-bolder">
-                                Arreglo
-                            </p>
-                            {{ repair.detail }}
-                        </li>
-                        <li class="list-group-item list-group-item-action">
-                            <p class="font-weight-bolder">
-                                Km arreglo
-                            </p>    
-                            {{ repair.km_repair }}
-                        </li>
-                        <li class="list-group-item list-group-item-action">
-                            <p class="font-weight-bolder">
-                                Costo
-                            </p>
-                            {{ repair.cost }}
-                        </li>
-                    </label>
-                    {% endfor %}                                                  
-            {% endfor %}                       
-        </ul>
-    </div>
+  </tbody>
+</table>
+
+
+
+
+
     <div class="card-body">
-
                 <a href="{% url 'workshop:index' %}">
                     <button type="Button" class="btn btn-outline-primary">Owners</button>
                 </a>

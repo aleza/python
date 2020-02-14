@@ -44,10 +44,14 @@ def repairs(request, owner_id):
     brand   = get_object_or_404(Brand, pk=owner_id) 
     model   = get_object_or_404(Model, pk=owner_id)
     repair  = get_object_or_404(Repair, pk=owner_id)
+    latest_repairs_list = Repair.objects.order_by('model')[:] 
+    latest_models_list  = Model.objects.order_by('brand')[:]
     context = { 'owner' : owner,
                 'brand' : brand,
                 'model' : model,
-                'repair': repair
+                'repair': repair,
+                'latest_repairs_list' : latest_repairs_list,
+                'latest_models_list'  : latest_models_list
                 }
     return render(request, 'workshop/repair.html', context)        
 
