@@ -57,8 +57,9 @@ def repairs(request, owner_id):
 
 def repair_model(request, model_id):
     model_m             = get_object_or_404(Model, pk=model_id)
-    repair_m            = get_object_or_404(Repair, pk=model_id)
-    latest_repairs_list = Repair.objects.order_by('model')[:] 
+    repair_m            = Repair.objects.all() 
+    latest_repairs_list = Repair.objects.all() 
+
     context = { 'model_m'             : model_m,
                 'repair_m'            : repair_m,
                 'latest_repairs_list' : latest_repairs_list

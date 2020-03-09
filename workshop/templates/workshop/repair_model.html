@@ -15,18 +15,13 @@
   <div class="card-header text-left" style="margin-bottom:0">
     <h4 class="card-title">      
 
-    
-        {% if repair_m.model_id == model_m.id %}              
-            
-            {{ model_m.brand.owner.surname }}  
-            {{ model_m.brand.owner.name }} :         
-            <h3>
-            Vehiculo : 
-            {{ model_m.brand.brandName }}
-            {{ model_m.modelName}}
-            </h3>            
-
-        {% endif %}
+      {{ model_m.brand.owner.surname }}  
+      {{ model_m.brand.owner.name }}  
+      <h5>
+        Vehiculo : 
+          {{ model_m.brand.brandName }}
+          {{ model_m.modelName}}      
+      </h5>  
          
     </h4>  
   </div>
@@ -60,7 +55,7 @@
         </td>
         <td>
             {{ repair.cost }}
-        </td>        
+        </td>       
         {% endif %}    
     </tr>
     {% endfor %}                    
