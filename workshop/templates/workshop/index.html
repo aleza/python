@@ -18,13 +18,10 @@
 		{% if latest_owners_list %}
     	<ul class="list-group, csrf_token">
     		{% for owner in latest_owners_list %}
-        	<li class="list-group-item list-group-item-action">        		        	
-
-                    
-                    <a href="{% url 'workshop:brands' owner.id %}">
-                        <input type="Button" name="Owners" value="{{ owner.surname }}, {{ owner.name }}" class="btn btn-info">
-                    </a>  
-
+        	<li class="list-group-item list-group-item-action">        		        	                    
+                <a href="{% url 'workshop:brands' owner.id %}">
+                    <input type="Button" name="Owners" value="{{ owner.surname }}, {{ owner.name }}" class="btn btn-info">
+                </a>  
         	</li>
     		{% endfor %}
     	</ul>

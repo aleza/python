@@ -11,6 +11,7 @@
 {% endfor %}
 
 <div class="card">
+
 	<div class="card-header text-left" style="margin-bottom:0">
 		<h4 class="card-title">
       Cars :
@@ -18,13 +19,9 @@
     <h1>
       {{ owner.surname }}, 
       {{ owner.name }}
-
-
-      {{ owner.id }}, 
-      {{ brand.owner_id }}
-      {{ brand.brandName }}
     </h1>
-	</div>
+  </div>
+  
   <table class="table">
     <thead>
       <tr>
@@ -34,9 +31,6 @@
         <th scope="col">Km</th>
       </tr>
     </thead>
-
-
-
 
     <tbody>
     {% for owner in owner.brand_set.all %}             
@@ -66,17 +60,10 @@
     </tbody>
   </table>
 
-
-
-
   <div class="card-body">
     <a href="{% url 'workshop:index' %}">
       <button type="Button" class="btn btn-outline-primary">Owners</button>
     </a>
-      <button type="button" class="btn btn-secondary btn-lg" disabled>Cars</button>
-    <a href="{% url 'workshop:repairs' owner.id %}">
-      <button type="button" class="btn btn-outline-primary">Repairs</button>     
-    </a>  
-	</div>
-
+  </div>
+  
 </div>
