@@ -59,10 +59,16 @@ def repair_model(request, model_id):
     model_m             = get_object_or_404(Model, pk=model_id)
     repair_m            = Repair.objects.all() 
     latest_repairs_list = Repair.objects.all() 
+    b=[] 
+    for a in latest_repairs_list:
+        b.append(a.model_id)      
+     
+    print(b)
 
     context = { 'model_m'             : model_m,
                 'repair_m'            : repair_m,
-                'latest_repairs_list' : latest_repairs_list
+                'latest_repairs_list' : latest_repairs_list,
+                'latest_models_list'  : b
                 }                
     return render(request, 'workshop/repair_model.html', context)  
 

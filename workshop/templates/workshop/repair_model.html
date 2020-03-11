@@ -37,8 +37,19 @@
     </tr>
   </thead>
   <tbody>
+
+  
+
+    {{ model_m.id }} --
+ 
+    {{ latest_models_list }}
+
+    {% if model_m.id in latest_models_list %}
+
     {% for repair in latest_repairs_list %}
     <tr>
+      {{ repair.model_id }}
+              
         {% if repair.model_id == model_m.id %}          
         <th scope="row"> 
             {{ model_m.brand }}                       
@@ -57,8 +68,12 @@
             {{ repair.cost }}
         </td>       
         {% endif %}    
+  
     </tr>
-    {% endfor %}                    
+    {% endfor %}  
+    {% else %}
+        No registra arreglos
+    {% endif %}
 
   </tbody>
 </table>
